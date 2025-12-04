@@ -64,25 +64,28 @@ app.get('/api/cards', (req, res) => {
 
 // 7. Jouer un choix sur une carte (appliquer impact à l'établissement)
 app.post('/api/choose', (req, res) => {
-    const { cardId, choice, etablissementId } = req.body;
+    const { cardId, choice, etablissementId, currentEtab } = req.body;
     const card = dbData.cards.find(c => c.id === cardId);
-    const etab = dbData.etablissements.find(e => e.id === etablissementId);
 
-    if (!card || !etab) return res.status(404).json({ message: 'Carte ou établissement introuvable.' });
+    if (!card) return res.status(404).json({ message: 'Carte introuvable.' });
 
     const selected = choice === 'left' ? card.choix_gauche : card.choix_droite;
 
-    // Calculer un nouvel état d'établissement en mémoire (NE PAS PERSISTER)
+    // Base pour calculer l'état mis à jour : utiliser l'état envoyé par le client s'il existe,
+    // sinon tomber back sur les données stockées (dégradé).
+    const baseEtab = currentEtab || dbData.etablissements.find(e => e.id === etablissementId);
+
+    if (!baseEtab) return res.status(404).json({ message: 'Établissement introuvable.' });
+
     const updatedEtab = {
-        ...etab,
-        autonomie: Math.max(0, Math.min(100, etab.autonomie + selected.impact.autonomie)),
-        dependance: Math.max(0, Math.min(100, etab.dependance + selected.impact.dependance)),
-        budget_euros: Math.max(0, etab.budget_euros + selected.impact.budget),
-        empreinte_co2: Math.max(0, Math.min(100, etab.empreinte_co2 + selected.impact.co2))
+        ...baseEtab,
+        autonomie: Math.max(0, Math.min(100, (baseEtab.autonomie || 0) + (selected.impact.autonomie || 0))),
+        dependance: Math.max(0, Math.min(100, (baseEtab.dependance || 0) + (selected.impact.dependance || 0))),
+        budget_euros: Math.max(0, (baseEtab.budget_euros || 0) + (selected.impact.budget || 0)),
+        empreinte_co2: Math.max(0, Math.min(100, (baseEtab.empreinte_co2 || 0) + (selected.impact.co2 || 0)))
     };
 
-    // Ne pas écrire dans db.json — le jeu est éphémère par session
-    // Retourner l'état calculé (côté client doit conserver en mémoire)
+    // Ne pas persister : mode éphémère
     return res.json({ etablissement: updatedEtab, selected });
 });
 

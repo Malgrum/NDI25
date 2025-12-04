@@ -57,7 +57,7 @@ export default function App() {
                 const first = pickRandom(c || []);
                 setCurrentCard(first);
                 setMessage('Bienvenue au Village NIRD — prenez des décisions pour votre établissement');
-                // charger les images (manifest dans public/images/images.json)
+                // charger les images 
                 try {
                     const imgs = await fetch('/images/images.json').then(r => r.json());
                     setImages(imgs || []);
@@ -136,7 +136,13 @@ export default function App() {
             const res = await fetch(`${API_URL}/choose`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cardId: currentCard.id, choice: choice === 'left' ? 'left' : 'right', etablissementId: ETAB_ID })
+                body: JSON.stringify({
+                    cardId: currentCard.id,
+                    choice: choice === 'left' ? 'left' : 'right',
+                    etablissementId: ETAB_ID,
+                    // send current in-memory state so backend computes from this
+                    currentEtab: etablissement
+                })
             });
             if (!res.ok) {
                 setMessage('Erreur lors de l envoi du choix.');
@@ -177,7 +183,7 @@ export default function App() {
     };
 
     if (loading) return <div className="loading">Chargement du Village NIRD...</div>;
-    // Menu   screen before entering the game
+    // Menu screen before entering the game
     if (showMenu) {
         return (
             <div className="menu-screen">
@@ -277,7 +283,7 @@ export default function App() {
                         <p>{gameOverReason}</p>
                         <div style={{ marginTop: '1rem' }}>
                             <button className="btn-return" onClick={async () => {
-                                // reset to menu and reload initial etablissement
+                                // reset to menu and reload initial
                                 setShowMenu(true);
                                 setShowDocs(false);
                                 setShowCredits(false);
