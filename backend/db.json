@@ -1,0 +1,1173 @@
+{
+  "etablissements": [
+    {
+      "id": 1,
+      "nom": "Lycée Carnot (Modèle NIRD)",
+      "autonomie": 95,
+      "dependance": 5,
+      "budget_euros": 100000,
+      "empreinte_co2": 5,
+      "progres_nird": 8
+    },
+    {
+      "id": 2,
+      "nom": "Collège Maupassant (Mon Établissement)",
+      "autonomie": 100,
+      "dependance": 0,
+      "budget_euros": 0,
+      "empreinte_co2": 0,
+      "progres_nird": 4
+    },
+    {
+      "id": 3,
+      "nom": "Lycée Voltaire (Goliath)",
+      "autonomie": 10,
+      "dependance": 90,
+      "budget_euros": 300000,
+      "empreinte_co2": 95,
+      "progres_nird": 1
+    }
+  ],
+  "defis": [
+    {
+      "id": 101,
+      "titre": "Défi : Migration Libre (50 PC)",
+      "description": "Installer un OS libre sur 50 machines qui tournaient sous Windows 10.",
+      "impact": {
+        "autonomie": 15,
+        "co2": -10,
+        "budget": 10000
+      },
+      "statut": "Ouvert"
+    },
+    {
+      "id": 102,
+      "titre": "Défi : Serveur de Communs",
+      "description": "Mise en place d'une solution de stockage et de collaboration locale (Nextcloud, etc.).",
+      "impact": {
+        "autonomie": 25,
+        "co2": -5,
+        "budget": 5000
+      },
+      "statut": "Ouvert"
+    }
+  ],
+  "cards": [
+    {
+      "id": 301,
+      "titre": "Installer un serveur local de stockage",
+      "texte": "La communauté propose d'installer un serveur Nextcloud pour héberger les fichiers localement.",
+      "choix_gauche": {
+        "texte": "Valider : financer l'achat et l'installation",
+        "impact": {
+          "autonomie": 20,
+          "dependance": -15,
+          "budget": -8000,
+          "co2": -3
+        }
+      },
+      "choix_droite": {
+        "texte": "Refuser : continuer d'utiliser des services externes",
+        "impact": {
+          "autonomie": -10,
+          "dependance": 10,
+          "budget": 0,
+          "co2": 2
+        }
+      }
+    },
+    {
+      "id": 302,
+      "titre": "Atelier de réemploi",
+      "texte": "Un groupe veut organiser un atelier pour réparer et réutiliser du matériel informatique.",
+      "choix_gauche": {
+        "texte": "Soutenir l'atelier",
+        "impact": {
+          "autonomie": 10,
+          "dependance": -5,
+          "budget": -2000,
+          "co2": -10
+        }
+      },
+      "choix_droite": {
+        "texte": "Ne pas s'impliquer",
+        "impact": {
+          "autonomie": -5,
+          "dependance": 5,
+          "budget": 0,
+          "co2": 5
+        }
+      }
+    }
+  ],
+  "temoignages": [
+    {
+      "id": 201,
+      "auteur": "Prof. Martin, Carnot",
+      "contenu": "La migration vers Linux a redonné du sens à l'équipe technique et a sauvé 70 PC de la casse !"
+    },
+    {
+      "id": 202,
+      "auteur": "Éco-Délégué Z., Maupassant",
+      "contenu": "Nous avons appris à réparer de vieux écrans pendant l'atelier de réemploi."
+    }
+  ],
+  "history": [
+    {
+      "ts": 1764885761871,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885736399,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885723315,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764885713870,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885704857,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885700876,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764885685584,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885684959,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885684413,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885683878,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885683326,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885682567,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885682379,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885680640,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885679762,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885678315,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885677753,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885595740,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764885594822,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885351914,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764885351416,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764885351209,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764885350932,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764885350427,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885349955,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764885349404,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764885348763,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885347677,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885347132,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764885346480,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764885346152,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885344983,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764885339314,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884889565,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884889287,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884889131,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884888866,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884888647,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884888437,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884888262,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884888074,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884887861,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884887653,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884887466,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884887285,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884887094,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884886940,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884886695,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884886245,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884886050,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884885863,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884885657,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884885456,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884885255,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884885069,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884884899,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884884683,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884884477,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884884290,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884884062,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884883835,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884883633,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884883464,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884883240,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884883011,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884882819,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884882626,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884882470,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884882230,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884881926,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884881404,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884880884,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884880232,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884879755,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884879151,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884878422,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884876791,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884876238,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884874983,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884874075,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884868679,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "left",
+      "impact": {
+        "autonomie": 20,
+        "dependance": -15,
+        "budget": -8000,
+        "co2": -3
+      }
+    },
+    {
+      "ts": 1764884851047,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884850052,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884847257,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    },
+    {
+      "ts": 1764884846428,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884845304,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "right",
+      "impact": {
+        "autonomie": -5,
+        "dependance": 5,
+        "budget": 0,
+        "co2": 5
+      }
+    },
+    {
+      "ts": 1764884838938,
+      "etablissementId": 2,
+      "cardId": 301,
+      "choice": "right",
+      "impact": {
+        "autonomie": -10,
+        "dependance": 10,
+        "budget": 0,
+        "co2": 2
+      }
+    },
+    {
+      "ts": 1764884835090,
+      "etablissementId": 2,
+      "cardId": 302,
+      "choice": "left",
+      "impact": {
+        "autonomie": 10,
+        "dependance": -5,
+        "budget": -2000,
+        "co2": -10
+      }
+    }
+  ]
+}
