@@ -25,6 +25,10 @@ export default function App() {
     const [showMenu, setShowMenu] = useState(true);
     const [showCredits, setShowCredits] = useState(false);
     const [showDocs, setShowDocs] = useState(false);
+    const [images, setImages] = useState([]);
+    const [leftImg, setLeftImg] = useState(null);
+    const [rightImg, setRightImg] = useState(null);
+    const [gameOverReason, setGameOverReason] = useState(null);
 
     const ETAB_ID = 2; // id du joueur
 
@@ -38,11 +42,38 @@ export default function App() {
                 ]);
                 const etabs = await etabRes.json();
                 const my = etabs.find(e => e.id === ETAB_ID) || etabs[0] || null;
-                setEtablissement(my);
+                // For gameplay, start with default initial values (non-persistent)
+                const initialEtab = my ? {
+                    ...my,
+                    autonomie: 50,
+                    dependance: 50,
+                    budget_euros: 100000,
+                    empreinte_co2: 0,
+                    progres_nird: my.progres_nird || 0
+                } : null;
+                setEtablissement(initialEtab);
                 const c = await cardsRes.json();
                 setCards(c || []);
-                setCurrentCard(pickRandom(c || []));
+                const first = pickRandom(c || []);
+                setCurrentCard(first);
                 setMessage('Bienvenue au Village NIRD — prenez des décisions pour votre établissement');
+                // charger les images (manifest dans public/images/images.json)
+                try {
+                    const imgs = await fetch('/images/images.json').then(r => r.json());
+                    setImages(imgs || []);
+                    if (imgs && imgs.length > 0) {
+                        const i1 = imgs[Math.floor(Math.random() * imgs.length)];
+                        let i2 = imgs[Math.floor(Math.random() * imgs.length)];
+                        if (imgs.length > 1) {
+                            let attempts = 0;
+                            while (i2 === i1 && attempts < 6) { i2 = imgs[Math.floor(Math.random() * imgs.length)]; attempts++; }
+                        }
+                        setLeftImg(`/images/${i1}`);
+                        setRightImg(`/images/${i2}`);
+                    }
+                } catch (e) {
+                    setImages([]);
+                }
             } catch (err) {
                 setMessage("Erreur de connexion à l'API. Démarrez le backend (port 3001).");
             }
@@ -52,6 +83,41 @@ export default function App() {
     }, []);
 
     const pickRandom = (arr) => (arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : null);
+
+    const applyStartDefaults = (etab) => {
+        const base = etab || { id: ETAB_ID, nom: 'Mon Établissement' };
+        return {
+            ...base,
+            autonomie: 50,
+            dependance: 50,
+            budget_euros: 100000,
+            empreinte_co2: 0,
+            progres_nird: base.progres_nird || 0
+        };
+    };
+
+    const startNewGame = () => {
+        const initial = applyStartDefaults(etablissement);
+        setEtablissement(initial);
+        setHistory([]);
+        setGameOverReason(null);
+        setShowMenu(false);
+        setShowDocs(false);
+        setShowCredits(false);
+        setMessage('Nouvelle partie — bonne chance !');
+        setCurrentCard(pickRandom(cards));
+        // pick initial images
+        if (images && images.length > 0) {
+            const i1 = images[Math.floor(Math.random() * images.length)];
+            let i2 = images[Math.floor(Math.random() * images.length)];
+            if (images.length > 1) {
+                let attempts = 0;
+                while (i2 === i1 && attempts < 6) { i2 = images[Math.floor(Math.random() * images.length)]; attempts++; }
+            }
+            setLeftImg(`/images/${i1}`);
+            setRightImg(`/images/${i2}`);
+        }
+    };
 
     const checkGameOver = (etab) => {
         if (!etab) return false;
@@ -83,12 +149,27 @@ export default function App() {
             const over = checkGameOver(data.etablissement);
             if (over) {
                 setMessage(`Game Over — ${over.reason}`);
+                setGameOverReason(over.reason);
                 setCurrentCard(null);
                 return;
             }
 
             // nouvelle carte aléatoire
-            setCurrentCard(pickRandom(cards));
+            const next = pickRandom(cards);
+            setCurrentCard(next);
+            // choisir deux images différentes si possible
+            if (images && images.length > 0) {
+                const i1 = images[Math.floor(Math.random() * images.length)];
+                let i2 = images[Math.floor(Math.random() * images.length)];
+                if (images.length > 1) {
+                    let attempts = 0;
+                    while (i2 === i1 && attempts < 6) { i2 = images[Math.floor(Math.random() * images.length)]; attempts++; }
+                }
+                setLeftImg(`/images/${i1}`);
+                setRightImg(`/images/${i2}`);
+            } else {
+                setLeftImg(null); setRightImg(null);
+            }
             setMessage('Choix appliqué — continuez à façonner votre village');
         } catch (err) {
             setMessage('Erreur réseau lors de l envoi du choix.');
@@ -96,14 +177,14 @@ export default function App() {
     };
 
     if (loading) return <div className="loading">Chargement du Village NIRD...</div>;
-    // Menu screen before entering the game
+    // Menu   screen before entering the game
     if (showMenu) {
         return (
             <div className="menu-screen">
                 <h1>🛡️ Village NIRD</h1>
                 <p>Jeu de simulation communautaire — prenez des décisions pour votre établissement.</p>
                 <div className="menu-actions">
-                    <button className="btn-play" onClick={() => setShowMenu(false)}>Jouer</button>
+                    <button className="btn-play" onClick={startNewGame}>Jouer</button>
                     <button className="btn-credits" onClick={() => setShowCredits(true)}>Crédits</button>
                     <button className="btn-link" onClick={() => setShowDocs(true)}>Documentation / Lien</button>
                 </div>
@@ -118,13 +199,14 @@ export default function App() {
                 {showDocs && (
                     <div className="docs">
                         <h3>Documentation & Liens</h3>
-                        <p>Voici quelques lignes d'information et ressources utiles :</p>
-                        <ul>
-                            <li><strong>Introduction:</strong> Présentation du Village NIRD et des règles du jeu.</li>
-                            <li><strong>But du jeu:</strong> Augmenter l'autonomie de votre établissement en prenant des décisions.</li>
-                            <li><strong>Conseils:</strong> Alternez entre actions techniques et pédagogiques pour un impact durable.</li>
-                            <li><strong>Sources:</strong> Guides, tutoriels et liens de communautés (à compléter).</li>
-                        </ul>
+                        <p>Voici quelques lien vers le contexte du projet :</p>
+                            <h3>Documentation sur le projet NIRD</h3>
+                            <a href = "https://www.cafepedagogique.net/2025/04/27/bruay-labuissiere-voyage-au-centre-du-libre-educatif/">Introduction à NIRD</a><br/>
+                            <a href ="https://tube-numerique-educatif.apps.education.fr/w/pZCnzPKTYX2iF38Qh4ZGmq">Présentation Vidéo</a><br/><br/>
+
+                            <h3>Contexte du projet</h3>
+                            <a href ="https://www.youtube.com/watch?v=76T8oubek-c">L'état obligé de jeter des ordinateurs</a><br/>
+                            <br/> 
                         <button onClick={() => setShowDocs(false)}>Retour</button>
                     </div>
                 )}
@@ -134,7 +216,7 @@ export default function App() {
 
     return (
         <div className="app-container reigns">
-            <h1>🛡️ Village NIRD — Jeu (Reigns-like)</h1>
+            <h1>🛡️ Village NIRD </h1>
             <div className="top-row">
                 {etablissement ? (
                     <>
@@ -158,9 +240,11 @@ export default function App() {
 
                         <div className="choices">
                             <button className="choice left" onClick={() => handleChoice('left')}>
+                                {leftImg && <img src={leftImg} alt="choix gauche" />}
                                 {currentCard.choix_gauche.texte}
                             </button>
                             <button className="choice right" onClick={() => handleChoice('right')}>
+                                {rightImg && <img src={rightImg} alt="choix droite" />}
                                 {currentCard.choix_droite.texte}
                             </button>
                         </div>
@@ -169,21 +253,54 @@ export default function App() {
                     <div className="no-card">Plus de cartes ou fin de partie.</div>
                 )}
 
-                <aside className="history">
-                    <h3>Historique (dernier choix)</h3>
-                    {history.length === 0 ? (
-                        <div>Aucun choix pour l'instant.</div>
-                    ) : (
-                        <ul>
-                            {history.map((h, i) => (
-                                <li key={i}>
-                                    <strong>{h.card.titre}</strong> — {h.choice} — impact: autonomie {h.impact.autonomie}, budget {formatCurrency(h.impact.budget)}
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </aside>
+                {gameOverReason && (
+                    <aside className="history">
+                        <h3>Historique (dernier choix)</h3>
+                        {history.length === 0 ? (
+                            <div>Aucun choix pour l'instant.</div>
+                        ) : (
+                            <ul>
+                                {history.map((h, i) => (
+                                    <li key={i}>
+                                        <strong>{h.card.titre}</strong> — {h.choice} — impact: autonomie {h.impact.autonomie}, budget {formatCurrency(h.impact.budget)}
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </aside>
+                )}
             </main>
+            {gameOverReason && (
+                <div className="game-over-overlay">
+                    <div className="game-over-box">
+                        <h2>Game Over</h2>
+                        <p>{gameOverReason}</p>
+                        <div style={{ marginTop: '1rem' }}>
+                            <button className="btn-return" onClick={async () => {
+                                // reset to menu and reload initial etablissement
+                                setShowMenu(true);
+                                setShowDocs(false);
+                                setShowCredits(false);
+                                setHistory([]);
+                                setGameOverReason(null);
+                                setMessage('Retour au menu');
+                                try {
+                                    const etabRes = await fetch(`${API_URL}/etablissements`);
+                                    const etabs = await etabRes.json();
+                                    const my = etabs.find(e => e.id === ETAB_ID) || etabs[0] || null;
+                                    setEtablissement(applyStartDefaults(my));
+                                    const cardsRes = await fetch(`${API_URL}/cards`);
+                                    const c = await cardsRes.json();
+                                    setCards(c || []);
+                                    setCurrentCard(pickRandom(c || []));
+                                } catch (e) {
+                                    setMessage('Erreur lors du reset.');
+                                }
+                            }}>Retour au menu</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
