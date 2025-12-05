@@ -1,7 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 
-const API_URL = '/api';
+// Use production-relative `/api` when built and served (nginx proxy),
+// otherwise use the backend dev server on localhost for local development.
+const API_URL = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD)
+    ? '/api'
+    : 'http://localhost:3001/api';
 
 const formatCurrency = (amount) =>
     new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -33,6 +37,7 @@ export default function App() {
 
     const mainAudioRef = useRef(null);
     const loseAudioRef = useRef(null);
+    const ORIGINAL_MAIN_VOLUME = 0.7;
 
     const ETAB_ID = 2; // id du joueur
 
@@ -100,12 +105,26 @@ export default function App() {
         lose.preload = 'auto';
         loseAudioRef.current = lose;
 
+        const onLoseEnded = () => {
+            try {
+                const m = mainAudioRef.current;
+                if (m) {
+                    m.volume = ORIGINAL_MAIN_VOLUME;
+                    if (m.paused) {
+                        m.play().catch(() => {});
+                    }
+                }
+            } catch (e) {}
+        };
+        lose.addEventListener('ended', onLoseEnded);
+
         // try to play (may be blocked by browser autoplay policies)
         (async () => {
             try { await main.play(); } catch (e) { /* autoplay blocked */ }
         })();
 
         return () => {
+            try { lose.removeEventListener('ended', onLoseEnded); } catch (e) {}
             try { main.pause(); main.src = ''; } catch (e) {}
             try { lose.pause(); lose.src = ''; } catch (e) {}
         };
