@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './App.css';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = '/api';
 
 const formatCurrency = (amount) =>
     new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -29,6 +29,10 @@ export default function App() {
     const [leftImg, setLeftImg] = useState(null);
     const [rightImg, setRightImg] = useState(null);
     const [gameOverReason, setGameOverReason] = useState(null);
+    const [showHistory, setShowHistory] = useState(false);
+
+    const mainAudioRef = useRef(null);
+    const loseAudioRef = useRef(null);
 
     const ETAB_ID = 2; // id du joueur
 
@@ -82,6 +86,46 @@ export default function App() {
         load();
     }, []);
 
+    // Audio initialization: main theme plays on first load (no loop), lose plays once on game over.
+    useEffect(() => {
+        const main = new Audio('/audio/Main_theme.mp3');
+        main.loop = false;
+        main.volume = 0.7;
+        main.preload = 'auto';
+        mainAudioRef.current = main;
+
+        const lose = new Audio('/audio/lose.mp3');
+        lose.loop = false;
+        lose.volume = 1.0;
+        lose.preload = 'auto';
+        loseAudioRef.current = lose;
+
+        // try to play (may be blocked by browser autoplay policies)
+        (async () => {
+            try { await main.play(); } catch (e) { /* autoplay blocked */ }
+        })();
+
+        return () => {
+            try { main.pause(); main.src = ''; } catch (e) {}
+            try { lose.pause(); lose.src = ''; } catch (e) {}
+        };
+    }, []);
+
+    // When game over occurs, lower main volume and play lose once
+    useEffect(() => {
+        if (!gameOverReason) return;
+        const main = mainAudioRef.current;
+        const lose = loseAudioRef.current;
+        if (main) {
+            try { main.volume = 0.15; } catch (e) {}
+        }
+        if (lose) {
+            (async () => {
+                try { await lose.play(); } catch (e) { /* blocked */ }
+            })();
+        }
+    }, [gameOverReason]);
+
     const pickRandom = (arr) => (arr && arr.length ? arr[Math.floor(Math.random() * arr.length)] : null);
 
     const applyStartDefaults = (etab) => {
@@ -117,6 +161,13 @@ export default function App() {
             setLeftImg(`/images/${i1}`);
             setRightImg(`/images/${i2}`);
         }
+        // restore main audio volume and (re)play main theme when starting a new game
+        try {
+            const main = mainAudioRef.current;
+            const lose = loseAudioRef.current;
+            if (lose) { try { lose.pause(); lose.currentTime = 0; } catch (e) {} }
+            if (main) { try { main.volume = 0.7; main.currentTime = 0; main.play().catch(()=>{}); } catch (e) {} }
+        } catch (e) {}
     };
 
     const checkGameOver = (etab) => {
@@ -187,35 +238,39 @@ export default function App() {
     if (showMenu) {
         return (
             <div className="menu-screen">
-                <h1>🛡️ Village NIRD</h1>
-                <p>Jeu de simulation communautaire — prenez des décisions pour votre établissement.</p>
-                <div className="menu-actions">
-                    <button className="btn-play" onClick={startNewGame}>Jouer</button>
-                    <button className="btn-credits" onClick={() => setShowCredits(true)}>Crédits</button>
-                    <button className="btn-link" onClick={() => setShowDocs(true)}>Documentation / Lien</button>
-                </div>
-                {showCredits && (
-                    <div className="credits">
-                        <h3>Crédits</h3>
-                        <p>Conception: Équipe NIRD — Prototype Reigns-like</p>
-                        <p>Backend minimal & Frontend React. Données non sauvegardées entre sessions.</p>
-                        <button onClick={() => setShowCredits(false)}>Fermer</button>
-                    </div>
-                )}
-                {showDocs && (
-                    <div className="docs">
-                        <h3>Documentation & Liens</h3>
-                        <p>Voici quelques lien vers le contexte du projet :</p>
-                            <h3>Documentation sur le projet NIRD</h3>
-                            <a href = "https://www.cafepedagogique.net/2025/04/27/bruay-labuissiere-voyage-au-centre-du-libre-educatif/">Introduction à NIRD</a><br/>
-                            <a href ="https://tube-numerique-educatif.apps.education.fr/w/pZCnzPKTYX2iF38Qh4ZGmq">Présentation Vidéo</a><br/><br/>
+                <div className="menu-frame">
+                  <h1>🛡️ Village NIRD</h1>
+                  <p>Jeu de simulation communautaire — prenez des décisions pour votre établissement.</p>
+                  <div className="menu-actions">
+                      <button className="btn-play" onClick={startNewGame}>Jouer</button>
+                      <button className="btn-credits" onClick={() => setShowCredits(true)}>Crédits</button>
+                      <button className="btn-link" onClick={() => setShowDocs(true)}>Documentation / Lien</button>
+                  </div>
+                  {showCredits && (
+                      <div className="credits" style={{ marginTop: '1rem' }}>
+                          <h3>Crédits</h3>
+                          <p>Conception: Hideo Kojira</p>
+                          <p>Musique: Jean-Michel Bruitage</p>
+                          <p>Image: Gilbert Montgravé</p>
+                          <p>Développement: David Goodenought</p>
+                          <button onClick={() => setShowCredits(false)}>Fermer</button>
+                      </div>
+                  )}
+                  {showDocs && (
+                      <div className="docs" style={{ marginTop: '1rem' }}>
+                          <h3>Documentation & Liens</h3>
+                          <p>Voici quelques lien vers le contexte du projet :</p>
+                              <h3>Documentation sur le projet NIRD</h3>
+                              <a href = "https://www.cafepedagogique.net/2025/04/27/bruay-labuissiere-voyage-au-centre-du-libre-educatif/">Introduction à NIRD</a><br/>
+                              <a href ="https://tube-numerique-educatif.apps.education.fr/w/pZCnzPKTYX2iF38Qh4ZGmq">Présentation Vidéo</a><br/><br/>
 
-                            <h3>Contexte du projet</h3>
-                            <a href ="https://www.youtube.com/watch?v=76T8oubek-c">L'état obligé de jeter des ordinateurs</a><br/>
-                            <br/> 
-                        <button onClick={() => setShowDocs(false)}>Retour</button>
-                    </div>
-                )}
+                              <h3>Contexte du projet</h3>
+                              <a href ="https://www.youtube.com/watch?v=76T8oubek-c">L'état obligé de jeter des ordinateurs</a><br/>
+                              <br/> 
+                          <button onClick={() => setShowDocs(false)}>Retour</button>
+                      </div>
+                  )}
+                </div>
             </div>
         );
     }
@@ -259,22 +314,7 @@ export default function App() {
                     <div className="no-card">Plus de cartes ou fin de partie.</div>
                 )}
 
-                {gameOverReason && (
-                    <aside className="history">
-                        <h3>Historique (dernier choix)</h3>
-                        {history.length === 0 ? (
-                            <div>Aucun choix pour l'instant.</div>
-                        ) : (
-                            <ul>
-                                {history.map((h, i) => (
-                                    <li key={i}>
-                                        <strong>{h.card.titre}</strong> — {h.choice} — impact: autonomie {h.impact.autonomie}, budget {formatCurrency(h.impact.budget)}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </aside>
-                )}
+                {/* history will be shown from Game Over overlay via button */}
             </main>
             {gameOverReason && (
                 <div className="game-over-overlay">
@@ -303,7 +343,26 @@ export default function App() {
                                     setMessage('Erreur lors du reset.');
                                 }
                             }}>Retour au menu</button>
+                            <button className="btn-return" style={{ marginLeft: '0.6rem' }} onClick={() => setShowHistory(h => !h)}>
+                                {showHistory ? 'Masquer l\'historique' : 'Voir l\'historique'}
+                            </button>
                         </div>
+                        {showHistory && (
+                            <div style={{ marginTop: '1rem', textAlign: 'left', maxHeight: '260px', overflow: 'auto' }}>
+                                <h3>Historique</h3>
+                                {history.length === 0 ? (
+                                    <div>Aucun choix pour l'instant.</div>
+                                ) : (
+                                    <ul>
+                                        {history.map((h, i) => (
+                                            <li key={i} style={{ marginBottom: '0.4rem' }}>
+                                                <strong>{h.card.titre}</strong> — {h.choice} — impact: autonomie {h.impact.autonomie}, budget {formatCurrency(h.impact.budget)}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

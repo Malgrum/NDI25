@@ -33,6 +33,9 @@
   }
 }
 
+/* Center all images by default (choices, logos, etc.) */
+img { display: block; margin-left: auto; margin-right: auto; max-width: 100%; }
+
 .card {
   padding: 2em;
 }
@@ -41,13 +44,42 @@
   color: #888;
 }
 
-/* Medieval / Reigns-like styles */
+/* Medieval styles */
 body { background: #efe6d6; font-family: 'Georgia', serif; color: #241f1a; }
 .nav-bar { display:flex; gap:1rem; align-items:center; justify-content:flex-start; padding:1rem; background:#3f2a18; color:#fff; position:sticky; top:0; z-index:40; }
 .nav-bar .brand { font-weight:700; margin-right:2rem; }
 .nav-bar button, .nav-bar a { background:#8b5e3c; color:#fff; border:none; padding:0.5rem 0.9rem; border-radius:6px; cursor:pointer; text-decoration:none; }
 .menu-screen, .app-container { padding:1.5rem; }
+.menu-screen { background-image: url('/images/NIRD_wallpaper.png'); background-size: cover; background-position: center; padding:2rem; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+
+/* Menu cadre */
+.menu-screen .menu-frame {
+  background: rgba(255,250,240,0.95);
+  border: 6px solid #8b5e3c;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.28);
+  padding: 1.6rem;
+  border-radius: 12px;
+  max-width: 520px;
+  width: 100%;
+}
 .menu-actions { display:flex; gap:1rem; align-items:center; justify-content:center; margin-top:1rem; }
+.menu-screen .menu-actions { display:flex; flex-direction:column; gap:0.8rem; margin-top:0.8rem; }
+
+/* Framed buttons inside the menu */
+.menu-screen .menu-actions button, .menu-screen .menu-actions .btn-link {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 8px;
+  border: 3px solid #6b4a2e;
+  background: linear-gradient(#f8eed6,#efe1c0);
+  font-weight: 700;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.06), 0 6px 0 rgba(0,0,0,0.06);
+  cursor: pointer;
+}
+
+
+/* Custom cursor */
+body, .menu-screen, .app-container { cursor: url('/images/LogoNIRD.svg') 16 16, auto; }
 .menu-screen h1 { font-family:'Cinzel', 'Georgia', serif; font-size:2rem; color:#f7eddc; text-shadow:1px 1px 0 #2b1a0e; }
 .reigns .top-row { display:flex; gap:1rem; justify-content:center; margin:1rem 0; }
 .stat-bar { background:#faf5ef; padding:0.6rem 1rem; border-radius:8px; box-shadow:inset 0 -3px 0 rgba(0,0,0,0.06); }

@@ -99,6 +99,46 @@
         }
       }
     }
+    ,
+    {
+      "id": 303,
+      "titre": "Migration des postes en salle info",
+      "texte": "Remplacer les postes obsolètes par des machines reconditionnées et un OS libre.",
+      "choix_gauche": {
+        "texte": "Lancer la migration",
+        "impact": { "autonomie": 12, "dependance": -10, "budget": -7000, "co2": -8 }
+      },
+      "choix_droite": {
+        "texte": "Reporter le projet",
+        "impact": { "autonomie": -6, "dependance": 6, "budget": 0, "co2": 3 }
+      }
+    },
+    {
+      "id": 304,
+      "titre": "Créer un club logiciel libre",
+      "texte": "Proposer un club pour former les élèves et produire des ressources pédagogiques libres.",
+      "choix_gauche": {
+        "texte": "Financer le club",
+        "impact": { "autonomie": 8, "dependance": -4, "budget": -1500, "co2": -2 }
+      },
+      "choix_droite": {
+        "texte": "Ne pas soutenir",
+        "impact": { "autonomie": -4, "dependance": 4, "budget": 0, "co2": 1 }
+      }
+    },
+    {
+      "id": 305,
+      "titre": "Optimisation énergétique",
+      "texte": "Remplacer l'éclairage et optimiser les serveurs pour réduire la consommation.",
+      "choix_gauche": {
+        "texte": "Investir dans l'efficacité",
+        "impact": { "autonomie": 5, "dependance": -2, "budget": -3000, "co2": -20 }
+      },
+      "choix_droite": {
+        "texte": "Ignorer l'opportunité",
+        "impact": { "autonomie": -2, "dependance": 2, "budget": 0, "co2": 10 }
+      }
+    }
   ],
   "temoignages": [
     {

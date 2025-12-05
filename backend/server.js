@@ -89,12 +89,12 @@ app.post('/api/choose', (req, res) => {
     return res.json({ etablissement: updatedEtab, selected });
 });
 
-// 4. Récupérer les Témoignages (NOUVEAU)
+// 4. Récupérer les Témoignag
 app.get('/api/temoignages', (req, res) => {
     res.json(dbData.temoignages);
 });
 
-// 5. Ajouter un Témoignage (NOUVEAU)
+// 5. Ajouter un Témoignag
 app.post('/api/temoignages', (req, res) => {
     const { auteur, contenu } = req.body;
     if (!auteur || !contenu) {
